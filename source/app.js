@@ -927,6 +927,11 @@
       $('#empty .msg').textContent = 'Word (.docx) or PDF. The file is read in your browser and never leaves your computer.';
     });
     window.addEventListener('resize', fitZoom);
+    // Print from a clean copy of the pages directly under <body>; ids are renamed so the
+    // copy's SVG gradient doesn't point at the hidden original.
+    const printRoot = document.getElementById('print-root');
+    window.addEventListener('beforeprint', () => { printRoot.innerHTML = $('#sheets').innerHTML.replace(/pvgrad/g, 'pvgrad-print'); });
+    window.addEventListener('afterprint', () => { printRoot.innerHTML = ''; });
     render();
   }
 

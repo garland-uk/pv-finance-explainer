@@ -218,16 +218,19 @@ button { font: inherit; font-weight: 700; font-size: 14px; border-radius: 999px;
 
 /* ---------------- Print ---------------- */
 @page { size: A4 landscape; margin: 0; }
+/* Printing uses a copy of the pages placed straight under <body> (#print-root, filled by app.js
+   on beforeprint), so nothing in the app layout (padding, scrollbars, zoom) can offset or
+   shrink the sheets on any browser or operating system. */
+#print-root { display: none; }
 @media print {
-  body { background: var(--white); }
-  .app { display: block; height: auto; }
-  .panel, .empty { display: none !important; }
-  .preview { padding: 0; overflow: visible; }
-  .sheets { zoom: 1 !important; gap: 0; display: block; }
-  html, body { height: auto !important; overflow: visible !important; }
-  /* A fraction under the sheet height, so rounding on high DPI screens can never spill a page */
-  .page { box-shadow: none; height: 209.6mm; break-inside: avoid; page-break-inside: avoid; break-after: page; page-break-after: always; }
-  .page:last-child { break-after: auto; page-break-after: auto; }
+  html, body { margin: 0 !important; padding: 0 !important; background: var(--white) !important; height: auto !important; overflow: visible !important; }
+  .app { display: none !important; }
+  html, body { position: static !important; }
+  /* Pinned to the corner of the sheet, so padding or margins added to <body> by the browser or
+     an extension can't push the pages across */
+  #print-root { display: block !important; position: absolute !important; top: 0 !important; left: 0 !important; margin: 0 !important; padding: 0 !important; width: 297mm !important; }
+  #print-root .page { margin: 0; box-shadow: none; height: 209.6mm; break-inside: avoid; page-break-inside: avoid; break-after: page; page-break-after: always; }
+  #print-root .page:last-child { break-after: auto; page-break-after: auto; }
 }
 
 @media (max-width: 860px) {
