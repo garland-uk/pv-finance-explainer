@@ -188,21 +188,18 @@ button { font: inherit; font-weight: 700; font-size: 14px; border-radius: 999px;
 .ruled p { font-size: 9pt; line-height: 1.5; margin-top: 1.5mm; }
 
 /* Cover: photograph as a full-bleed band, never under type (9.3), over the Solar PV gradient (5.4) */
-.page.cover { display: flex; flex-direction: column; }
-.cover .photo { height: 76mm; flex: none; background-size: cover; background-position: center 50%; }
-.cover .field-g {
-  flex: 1; color: var(--white); padding: 13mm 15mm 11mm; display: grid;
-  grid-template-columns: 1fr 60mm; grid-template-rows: auto 1fr auto; column-gap: 10mm;
-  background:
-    radial-gradient(120% 110% at 102% 118%, #40C1AC 0%, #1C7A6E 24%, #0E4A43 48%, rgba(6, 46, 41, 0) 74%),
-    #062E29;
-}
-.cover .titleblock { grid-column: 1; grid-row: 1; }
-.cover .logo { grid-column: 2; grid-row: 1; width: 60mm; height: auto; display: block; justify-self: end; margin-top: 1mm; }
+/* Every cover element is pinned to the page, so nothing can flow onto a second sheet when
+   printed. The gradient is drawn as SVG, which browsers always print (CSS backgrounds can be
+   dropped by the print dialog). */
+.page.cover { background: #062E29; }
+.cover .photo { position: absolute; left: 0; top: 0; width: 297mm; height: 76mm; object-fit: cover; object-position: center 50%; display: block; }
+.cover .grad { position: absolute; left: 0; top: 76mm; width: 297mm; height: 134mm; display: block; }
+.cover .titleblock { position: absolute; left: 15mm; top: 89mm; width: 195mm; color: var(--white); }
+.cover .logo { position: absolute; right: 15mm; top: 90mm; width: 60mm; height: auto; display: block; }
 .cover .kicker { font-size: 11pt; font-weight: 700; color: var(--teal); }
 .cover .ch1 { text-wrap: balance; font-family: var(--display); font-weight: 900; font-size: 34pt; line-height: 1.05; letter-spacing: -0.015em; margin-top: 3mm; }
 .cover .clead { font-size: 13pt; line-height: 1.45; margin-top: 4mm; max-width: 150mm; }
-.cover .foot-g { grid-column: 1 / -1; grid-row: 3; display: flex; justify-content: space-between; align-items: flex-end; }
+.cover .foot-g { position: absolute; left: 15mm; bottom: 11mm; width: 200mm; color: var(--white); }
 .cover .meta { margin: 0; display: grid; grid-template-columns: auto 1fr; column-gap: 6mm; row-gap: 1mm; font-size: 9pt; line-height: 1.45; }
 .cover .meta dt { color: var(--lightblue); }
 .cover .meta dd { margin: 0; }
@@ -240,7 +237,9 @@ button { font: inherit; font-weight: 700; font-size: 14px; border-radius: 999px;
   .panel, .empty { display: none !important; }
   .preview { padding: 0; overflow: visible; }
   .sheets { zoom: 1 !important; gap: 0; display: block; }
-  .page { box-shadow: none; break-after: page; page-break-after: always; }
+  html, body { height: auto !important; overflow: visible !important; }
+  /* A fraction under the sheet height, so rounding on high DPI screens can never spill a page */
+  .page { box-shadow: none; height: 209.6mm; break-inside: avoid; page-break-inside: avoid; break-after: page; page-break-after: always; }
   .page:last-child { break-after: auto; page-break-after: auto; }
 }
 
@@ -872,20 +871,23 @@ https://github.com/nodeca/pako/blob/main/LICENSE
     if (d.reportDate) meta.push(['Report dated', esc(d.reportDate)]);
     meta.push(['Prepared', esc(d.prepared)]);
     return `<section class="page cover">
-      <div class="photo" style="background-image:url(${HERO})"></div>
-      <div class="field-g">
-        <div class="titleblock">
-          <div class="kicker">Solar PV asset finance illustration</div>
-          <h1 class="ch1" style="font-size:${fs}pt">Financing solar PV at ${esc(client)}</h1>
-          <p class="clead">How 5 and 7 year asset finance compare with the modelled savings from a ${trimNum(d.kwp, 2)} kWp solar PV system.</p>
-        </div>
-        <img class="logo" src="${LOGO_REV}" alt="Garland UK">
-        <div class="foot-g">
-          <div>
-            <dl class="meta">${meta.map(([k, v]) => `<dt>${k}</dt><dd>${v}</dd>`).join('')}</dl>
-            <div class="signoff">Partners for the life of your building</div>
-          </div>
-        </div>
+      <img class="photo" src="${HERO}" alt="">
+      <svg class="grad" viewBox="0 0 297 134" preserveAspectRatio="none" aria-hidden="true">
+        <defs><radialGradient id="pvgrad" cx="1.02" cy="1.18" r="1.15">
+          <stop offset="0" stop-color="#40C1AC"/><stop offset=".24" stop-color="#1C7A6E"/>
+          <stop offset=".48" stop-color="#0E4A43"/><stop offset=".74" stop-color="#062E29"/><stop offset="1" stop-color="#062E29"/>
+        </radialGradient></defs>
+        <rect width="297" height="134" fill="url(#pvgrad)"/>
+      </svg>
+      <div class="titleblock">
+        <div class="kicker">Solar PV asset finance illustration</div>
+        <h1 class="ch1" style="font-size:${fs}pt">Financing solar PV at ${esc(client)}</h1>
+        <p class="clead">How 5 and 7 year asset finance compare with the modelled savings from a ${trimNum(d.kwp, 2)} kWp solar PV system.</p>
+      </div>
+      <img class="logo" src="${LOGO_REV}" alt="Garland UK">
+      <div class="foot-g">
+        <dl class="meta">${meta.map(([k, v]) => `<dt>${k}</dt><dd>${v}</dd>`).join('')}</dl>
+        <div class="signoff">Partners for the life of your building</div>
       </div>
     </section>`;
   }

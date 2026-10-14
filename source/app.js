@@ -548,20 +548,23 @@
     if (d.reportDate) meta.push(['Report dated', esc(d.reportDate)]);
     meta.push(['Prepared', esc(d.prepared)]);
     return `<section class="page cover">
-      <div class="photo" style="background-image:url(${HERO})"></div>
-      <div class="field-g">
-        <div class="titleblock">
-          <div class="kicker">Solar PV asset finance illustration</div>
-          <h1 class="ch1" style="font-size:${fs}pt">Financing solar PV at ${esc(client)}</h1>
-          <p class="clead">How 5 and 7 year asset finance compare with the modelled savings from a ${trimNum(d.kwp, 2)} kWp solar PV system.</p>
-        </div>
-        <img class="logo" src="${LOGO_REV}" alt="Garland UK">
-        <div class="foot-g">
-          <div>
-            <dl class="meta">${meta.map(([k, v]) => `<dt>${k}</dt><dd>${v}</dd>`).join('')}</dl>
-            <div class="signoff">Partners for the life of your building</div>
-          </div>
-        </div>
+      <img class="photo" src="${HERO}" alt="">
+      <svg class="grad" viewBox="0 0 297 134" preserveAspectRatio="none" aria-hidden="true">
+        <defs><radialGradient id="pvgrad" cx="1.02" cy="1.18" r="1.15">
+          <stop offset="0" stop-color="#40C1AC"/><stop offset=".24" stop-color="#1C7A6E"/>
+          <stop offset=".48" stop-color="#0E4A43"/><stop offset=".74" stop-color="#062E29"/><stop offset="1" stop-color="#062E29"/>
+        </radialGradient></defs>
+        <rect width="297" height="134" fill="url(#pvgrad)"/>
+      </svg>
+      <div class="titleblock">
+        <div class="kicker">Solar PV asset finance illustration</div>
+        <h1 class="ch1" style="font-size:${fs}pt">Financing solar PV at ${esc(client)}</h1>
+        <p class="clead">How 5 and 7 year asset finance compare with the modelled savings from a ${trimNum(d.kwp, 2)} kWp solar PV system.</p>
+      </div>
+      <img class="logo" src="${LOGO_REV}" alt="Garland UK">
+      <div class="foot-g">
+        <dl class="meta">${meta.map(([k, v]) => `<dt>${k}</dt><dd>${v}</dd>`).join('')}</dl>
+        <div class="signoff">Partners for the life of your building</div>
       </div>
     </section>`;
   }
