@@ -1,0 +1,238 @@
+/* Garland UK | Solar PV asset finance explainer
+   Built to the Garland UK Brand Guidelines v2.0 (2026).
+   Type   Roboto Black for H1 and large numerals only (7.1). Text in Helvetica Neue LT Pro,
+          with Arial as the approved substitute where the licensed face is not installed (7.8).
+   Colour Text in Black 6, White or Garland Blue only (4.3). Orange for section numbers and
+          display numerals only (7.6). Solar PV gradient on the cover (5.4).
+   Grid   A4 landscape, 12 columns, 5 mm gutter, 15 mm margins (10.1). */
+
+@font-face { font-family: "Roboto"; font-weight: 900; font-style: normal; src: url(__ROBOTO900__) format("woff2"); }
+
+:root {
+  --blue: #003C71;          /* Garland Blue */
+  --orange: #FF6720;        /* Garland Orange */
+  --sky: #2774AE;           /* Sky Blue */
+  --black: #101820;         /* Black 6 */
+  --black70: rgba(16, 24, 32, .7);
+  --lightblue: #9BB8D3;     /* Light Blue */
+  --grey: #C1C6C8;          /* Grey */
+  --white: #FFFFFF;
+  --deepgreen: #00685E;     /* Solar PV */
+  --teal: #40C1AC;          /* Solar PV accent */
+  --th: #DCE3EC;            /* table header, 6.1 */
+  --rule: #C6D2E0;          /* table frame and dividers, 6.1 */
+  --keyline: #E7EAED;       /* secondary dividers, 6.3 */
+  --panel: #F4F6F8;         /* light panel, 6.2 */
+  --display: "Roboto", Arial, sans-serif;
+  --text: "Helvetica Neue LT Pro", Arial, "Liberation Sans", sans-serif;
+}
+
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+html, body { margin: 0; padding: 0; }
+body {
+  font-family: var(--text);
+  color: var(--black);
+  background: #E6EAEE;
+  -webkit-font-smoothing: antialiased;
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
+}
+
+/* ---------------- App shell (screen only) ---------------- */
+.app { display: grid; grid-template-columns: 360px 1fr; height: 100vh; }
+.panel {
+  background: var(--white); border-right: 1px solid var(--keyline);
+  overflow-y: auto; padding: 24px 24px 40px; display: flex; flex-direction: column; gap: 22px;
+}
+.brandrow img { width: 190px; height: auto; display: block; }
+.brandrow .t1 { font-family: var(--display); font-weight: 900; color: var(--blue); font-size: 22px; line-height: 1.1; margin-top: 18px; letter-spacing: -0.2px; }
+.brandrow .t2 { font-size: 13px; color: var(--black70); margin-top: 4px; }
+
+.step { display: flex; flex-direction: column; gap: 10px; }
+.step h2 { margin: 0; font-size: 15px; color: var(--blue); font-weight: 700; display: flex; align-items: baseline; gap: 8px; }
+.step h2 .n { font-family: var(--display); font-weight: 900; color: var(--orange); font-size: 18px; }
+.drop {
+  border: 1.5px dashed var(--lightblue); border-radius: 8px; background: var(--panel);
+  padding: 22px 14px; text-align: center; cursor: pointer; transition: border-color .15s, background .15s;
+}
+.drop:hover, .drop.over { border-color: var(--blue); background: #EAF0F6; }
+.drop strong { display: block; color: var(--blue); font-size: 15px; margin-bottom: 4px; }
+.drop span { font-size: 13px; color: var(--black70); }
+.drop input { display: none; }
+.status { font-size: 13px; line-height: 1.5; padding: 12px 14px; border-radius: 8px; background: var(--panel); }
+.status.ok::before { content: "Ready. "; font-weight: 700; color: var(--deepgreen); }
+.status.warn::before { content: "Check. "; font-weight: 700; color: var(--blue); }
+.status.err::before { content: "Problem. "; font-weight: 700; color: var(--blue); }
+.status:empty { display: none; }
+
+.field { display: flex; flex-direction: column; gap: 5px; }
+.field label { font-size: 13px; font-weight: 700; color: var(--blue); }
+.small { font-size: 12px; color: var(--black70); line-height: 1.5; }
+.money { position: relative; }
+.money::before { content: "£"; position: absolute; left: 11px; top: 50%; transform: translateY(-50%); color: var(--black70); font-size: 15px; }
+input[type=text] {
+  font: inherit; font-size: 15px; color: var(--black);
+  border: 1px solid var(--rule); border-radius: 8px; padding: 10px 11px; width: 100%; background: var(--white);
+}
+.money input[type=text] { padding-left: 26px; }
+input[type=text]:focus { outline: none; border-color: var(--blue); box-shadow: 0 0 0 3px rgba(0, 60, 113, .12); }
+.pair { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+
+details.review { border: 1px solid var(--keyline); border-radius: 8px; background: var(--white); }
+details.review summary { cursor: pointer; padding: 12px 14px; font-size: 13px; font-weight: 700; color: var(--blue); list-style: none; display: flex; justify-content: space-between; gap: 8px; }
+details.review summary::-webkit-details-marker { display: none; }
+details.review summary::after { content: "Show"; color: var(--black70); font-weight: 400; }
+details.review[open] summary::after { content: "Hide"; }
+.review .grp { padding: 0 14px 14px; }
+.review h3 { margin: 14px 0 8px; font-size: 13px; color: var(--blue); }
+.rf { display: grid; gap: 4px; margin-bottom: 10px; }
+.rf label { font-size: 12px; color: var(--black); }
+.rf input { font-size: 13px; padding: 7px 9px; }
+.rf.missing input { border-color: var(--orange); background: #FFF3EC; }
+.rf.missing label::after { content: " (not found, please enter)"; color: var(--black70); }
+
+.actions { gap: 10px; }
+button { font: inherit; font-weight: 700; font-size: 14px; border-radius: 999px; padding: 12px 16px; cursor: pointer; }
+.btn-primary { background: var(--blue); color: var(--white); border: 1.5px solid var(--blue); }
+.btn-primary:disabled { background: var(--keyline); border-color: var(--keyline); color: var(--black70); cursor: not-allowed; }
+.btn-ghost { background: var(--white); color: var(--blue); border: 1.5px solid var(--blue); }
+.privacy { font-size: 12px; color: var(--black70); line-height: 1.5; border-top: 1px solid var(--keyline); padding-top: 14px; margin-top: auto; }
+
+.preview { overflow: auto; padding: 28px; }
+.sheets { zoom: var(--z, 0.8); display: flex; flex-direction: column; align-items: center; gap: 10mm; }
+.empty { height: 100%; display: flex; align-items: center; justify-content: center; text-align: center; color: var(--black70); }
+.empty .box { max-width: 420px; }
+.empty .big { font-family: var(--display); font-weight: 900; font-size: 26px; color: var(--blue); margin-bottom: 8px; }
+
+/* ---------------- A4 landscape pages ---------------- */
+.page {
+  width: 297mm; height: 210mm; background: var(--white); position: relative; overflow: hidden;
+  box-shadow: 0 1px 10px rgba(16, 24, 32, .10);
+  font-family: var(--text); font-size: 9.5pt; line-height: 1.5; color: var(--black);
+}
+:where(.page) :where(h1, h2, h3, p) { margin: 0; font-weight: inherit; }
+
+/* Running head and foot, as used throughout the brand guidelines */
+.hd {
+  position: absolute; left: 15mm; right: 15mm; top: 10mm; height: 9mm;
+  display: flex; justify-content: space-between; align-items: center;
+  border-bottom: 1pt solid var(--blue); font-size: 8pt; color: var(--blue);
+}
+.hd b { font-weight: 700; }
+.ft {
+  position: absolute; left: 15mm; right: 15mm; bottom: 8mm; height: 8mm;
+  display: flex; justify-content: space-between; align-items: center; font-size: 7pt; color: var(--black70);
+}
+.ft img { width: 30mm; height: auto; display: block; }
+.ft .pg { font-size: 8pt; }
+
+/* Inner page grid: intro column (3 cols), one column of air, content (8 cols) */
+.body {
+  position: absolute; left: 15mm; right: 15mm; top: 29mm; bottom: 22mm;
+  display: grid; grid-template-columns: 63mm 1fr; grid-template-rows: minmax(0, 1fr); column-gap: 27.7mm;
+}
+.intro { display: flex; flex-direction: column; min-height: 0; }
+.secnum { font-family: var(--display); font-weight: 900; color: var(--orange); font-size: 13pt; line-height: 1; }
+.h1 { text-wrap: balance; font-family: var(--display); font-weight: 900; color: var(--blue); font-size: 25pt; line-height: 1.08; letter-spacing: -0.01em; margin-top: 3mm; }
+.lead { text-wrap: pretty; font-size: 11pt; line-height: 1.5; margin-top: 5mm; }
+.caption { font-size: 8pt; line-height: 1.5; font-style: italic; color: var(--black70); }
+.intro .caption { margin-top: auto; }
+.content { display: flex; flex-direction: column; min-width: 0; }
+.h3 { font-size: 11pt; font-weight: 700; color: var(--blue); line-height: 1.3; }
+
+/* Statistics: Roboto Black numerals in Garland Blue (6.3) */
+.stats { display: grid; grid-template-columns: repeat(4, 1fr); column-gap: 5mm; }
+.stat { border-top: 1pt solid var(--blue); padding-top: 3mm; }
+.stat .v { font-family: var(--display); font-weight: 900; font-size: 19pt; line-height: 1.1; color: var(--blue); letter-spacing: -0.01em; white-space: nowrap; }
+.stat .l { font-size: 8.5pt; line-height: 1.4; margin-top: 1.5mm; }
+
+/* Blue panel (6.2): one per page at most */
+.bluepanel { background: var(--blue); border-radius: 2mm; padding: 6mm 8mm; display: grid; grid-template-columns: 52mm 1fr; column-gap: 8mm; align-items: center; color: var(--white); }
+.bluepanel .big { font-family: var(--display); font-weight: 900; font-size: 30pt; line-height: 1; color: var(--orange); letter-spacing: -0.01em; white-space: nowrap; }
+.bluepanel .bl { font-size: 8.5pt; color: var(--lightblue); margin-top: 2mm; line-height: 1.4; }
+.bluepanel .t { font-size: 14pt; font-weight: 700; line-height: 1.3; }
+.bluepanel .d { font-size: 9.5pt; color: var(--lightblue); margin-top: 2mm; line-height: 1.5; }
+
+/* Light panel (6.2) */
+.lightpanel { background: var(--panel); border-radius: 2mm; padding: 6mm 7mm; }
+.lightpanel .h3 { margin-bottom: 1.5mm; }
+
+/* Brand table (6.1): Light Blue-grey header, rounded frame, hairline rows, no stripes */
+.bt { width: 100%; border-collapse: separate; border-spacing: 0; border: 1pt solid var(--rule); border-radius: 2mm; overflow: hidden; }
+.bt th { background: var(--th); color: var(--blue); font-size: 8.5pt; font-weight: 700; text-align: left; padding: 2.8mm 4mm; vertical-align: bottom; }
+.bt td { border-top: 0.5pt solid var(--rule); padding: 2.6mm 4mm; vertical-align: top; font-size: 9.5pt; }
+.bt td:first-child { font-weight: 700; color: var(--blue); }
+.bt .r { text-align: right; font-variant-numeric: tabular-nums; }
+.bt tr.em td { font-weight: 700; }
+.bt.compact td { padding-top: 2.1mm; padding-bottom: 2.1mm; }
+.bt.compact th { padding-top: 2.4mm; padding-bottom: 2.4mm; }
+
+/* Rule-headed columns (6.1 footer device) */
+.cols3 { display: grid; grid-template-columns: repeat(3, 1fr); column-gap: 5mm; }
+.ruled { border-top: 1pt solid var(--blue); padding-top: 3mm; }
+.ruled .h3 { font-size: 10pt; }
+.ruled p { font-size: 9pt; line-height: 1.5; margin-top: 1.5mm; }
+
+/* Cover: photograph as a full-bleed band, never under type (9.3), over the Solar PV gradient (5.4) */
+.page.cover { display: flex; flex-direction: column; }
+.cover .photo { height: 76mm; flex: none; background-size: cover; background-position: center 50%; }
+.cover .field-g {
+  flex: 1; color: var(--white); padding: 13mm 15mm 11mm; display: grid;
+  grid-template-columns: 1fr 60mm; grid-template-rows: auto 1fr auto; column-gap: 10mm;
+  background:
+    radial-gradient(120% 110% at 102% 118%, #40C1AC 0%, #1C7A6E 24%, #0E4A43 48%, rgba(6, 46, 41, 0) 74%),
+    #062E29;
+}
+.cover .titleblock { grid-column: 1; grid-row: 1; }
+.cover .logo { grid-column: 2; grid-row: 1; width: 60mm; height: auto; display: block; justify-self: end; margin-top: 1mm; }
+.cover .kicker { font-size: 11pt; font-weight: 700; color: var(--teal); }
+.cover .ch1 { text-wrap: balance; font-family: var(--display); font-weight: 900; font-size: 34pt; line-height: 1.05; letter-spacing: -0.015em; margin-top: 3mm; }
+.cover .clead { font-size: 13pt; line-height: 1.45; margin-top: 4mm; max-width: 150mm; }
+.cover .foot-g { grid-column: 1 / -1; grid-row: 3; display: flex; justify-content: space-between; align-items: flex-end; }
+.cover .meta { margin: 0; display: grid; grid-template-columns: auto 1fr; column-gap: 6mm; row-gap: 1mm; font-size: 9pt; line-height: 1.45; }
+.cover .meta dt { color: var(--lightblue); }
+.cover .meta dd { margin: 0; }
+.cover .signoff { font-size: 9pt; color: var(--lightblue); margin-top: 5mm; }
+
+/* Value page */
+.legend { display: flex; gap: 7mm; font-size: 8.5pt; margin-bottom: 2mm; }
+.legend i { display: inline-block; width: 7mm; height: 2.5px; vertical-align: middle; margin-right: 2mm; border-radius: 2px; }
+.chart svg { display: block; width: 100%; height: auto; }
+.stack { display: flex; flex-direction: column; gap: 6mm; margin-top: 8mm; }
+.stack .stat .v { font-size: 22pt; }
+.sens .s .v { font-family: var(--display); font-weight: 900; font-size: 18pt; line-height: 1.1; color: var(--blue); margin-top: 1mm; }
+.sens .s .k { font-size: 9pt; font-weight: 700; color: var(--blue); }
+.sens .s .l { font-size: 8.5pt; margin-top: 1mm; }
+
+/* Schedule */
+.st { width: 100%; border-collapse: separate; border-spacing: 0; border: 1pt solid var(--rule); border-radius: 2mm; overflow: hidden; font-variant-numeric: tabular-nums; }
+.st th { background: var(--th); color: var(--blue); font-size: 7.6pt; font-weight: 700; padding: 1.6mm 2.6mm; text-align: right; line-height: 1.25; }
+.st th.grp { text-align: center; padding-top: 2.4mm; padding-bottom: 0.6mm; }
+.st th.grp span { display: block; border-bottom: 0.5pt solid var(--lightblue); padding-bottom: 1.2mm; }
+.st th.yr { text-align: left; }
+.st td { text-align: right; padding: 0 2.6mm; height: var(--rowh, 4.4mm); font-size: var(--rowf, 7.8pt); border-top: 0.5pt solid var(--rule); }
+.st td.yr { text-align: left; font-weight: 700; color: var(--blue); }
+.st td.nil { color: var(--black70); }
+.st tr.end td { border-bottom: 1pt solid var(--lightblue); }
+.st tr.last td { font-weight: 700; }
+.leftnotes .h3 { font-size: 9.5pt; margin-top: 7mm; }
+.leftnotes p { font-size: 8.2pt; line-height: 1.5; margin-top: 1.5mm; }
+
+/* ---------------- Print ---------------- */
+@page { size: A4 landscape; margin: 0; }
+@media print {
+  body { background: var(--white); }
+  .app { display: block; height: auto; }
+  .panel, .empty { display: none !important; }
+  .preview { padding: 0; overflow: visible; }
+  .sheets { zoom: 1 !important; gap: 0; display: block; }
+  .page { box-shadow: none; break-after: page; page-break-after: always; }
+  .page:last-child { break-after: auto; page-break-after: auto; }
+}
+
+@media (max-width: 860px) {
+  .app { grid-template-columns: 1fr; height: auto; }
+  .panel { border-right: 0; border-bottom: 1px solid var(--keyline); }
+  .preview { padding: 16px; }
+}

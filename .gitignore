@@ -1,0 +1,5 @@
+# Never commit client reports or finished explainers
+*.docx
+*.pdf
+*.xlsx
+.DS_Store

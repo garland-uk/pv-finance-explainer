@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Privacy lock: this page cannot send data anywhere. connect-src and form-action are 'none',
+     and every library, font and image is embedded in this file. -->
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'unsafe-inline' blob:; worker-src blob:; style-src 'unsafe-inline'; img-src data: blob:; font-src data:; connect-src 'none'; form-action 'none'; base-uri 'none'; object-src 'none'">
+<meta name="referrer" content="no-referrer">
+<meta name="robots" content="noindex, nofollow, noarchive">
+<title>Solar PV asset finance explainer | Garland UK</title>
+<link rel="icon" href="__LOGO_SQ_DATAURI__">
+<style>
+__CSS__
+</style>
+</head>
+<body>
+<div class="app">
+  <aside class="panel">
+    <div class="brandrow">
+      <img src="__LOGO_H_DATAURI__" alt="Garland UK">
+      <div class="t1">Solar PV asset finance</div>
+      <div class="t2">Turn a PV*SOL report into a finance explainer</div>
+    </div>
+
+    <div class="step">
+      <h2><span class="n">1</span>Add the PV*SOL report</h2>
+      <div class="drop" id="drop" tabindex="0" role="button" aria-label="Choose or drop a PV*SOL report">
+        <strong>Drop the PV*SOL report here</strong>
+        <span>or click to choose a .docx or .pdf file</span>
+        <input type="file" id="file" accept=".docx,.pdf,application/pdf,application/vnd.openxmlformats-officedocument.wordprocessingml.document">
+      </div>
+      <div class="status" id="status"></div>
+    </div>
+
+    <div class="step">
+      <h2><span class="n">2</span>Enter the monthly repayments</h2>
+      <div class="pair">
+        <div class="field"><label for="pay5">5 year (60 months)</label><div class="money"><input type="text" id="pay5" inputmode="decimal" placeholder="2,423.89" autocomplete="off"></div></div>
+        <div class="field"><label for="pay7">7 year (84 months)</label><div class="money"><input type="text" id="pay7" inputmode="decimal" placeholder="1,872.33" autocomplete="off"></div></div>
+      </div>
+      <div class="small">Use the lender's quoted monthly figure, excluding VAT.</div>
+    </div>
+
+    <details class="review" id="review" hidden>
+      <summary><span>Check what was read from the report</span></summary>
+      <div class="grp"></div>
+    </details>
+
+    <div class="step actions">
+      <h2><span class="n">3</span>Save the explainer</h2>
+      <button class="btn-primary" id="print" disabled>Save as PDF</button>
+      <div class="small">In the print window choose <b>Save as PDF</b>, A4 landscape. If colours are missing, tick <b>Background graphics</b> under More settings.</div>
+      <button class="btn-ghost" id="reset">Start again</button>
+    </div>
+
+    <div class="privacy">Private by design. The report is read inside your browser and is never uploaded, saved or sent anywhere. Closing this tab clears it.</div>
+  </aside>
+
+  <main class="preview">
+    <div class="empty" id="empty"><div class="box"><div class="big">Drop a PV*SOL report to start</div><div class="msg">Word (.docx) or PDF. The file is read in your browser and never leaves your computer.</div></div></div>
+    <div class="sheets" id="sheets"></div>
+  </main>
+</div>
+
+<script type="text/plain" id="asset-logo-h">__LOGO_H_DATAURI__</script>
+<script type="text/plain" id="asset-logo-rev">__LOGO_REV_DATAURI__</script>
+<script type="text/plain" id="asset-hero">__HERO_DATAURI__</script>
+<script type="text/plain" id="lib-pdfjs">__PDFJS_B64__</script>
+<script type="text/plain" id="lib-pdfworker">__PDFWORKER_B64__</script>
+<script>
+__JSZIP__
+</script>
+<script>
+__APP__
+</script>
+</body>
+</html>
